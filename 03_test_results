@@ -59,3 +59,92 @@ The data appears suitable for an initial prototype of sentiment and topic analys
 **Preliminary finding:** Pagination worked successfully in this test, allowing retrieval of 200 reviews across two consecutive batches without duplicate review IDs.
 
 **Limitation:** This is a small-scale test and does not establish long-term repeatability or guaranteed access.
+## Duolingo Google Play Review Test
+
+### Test Configuration
+- App: Duolingo
+- Package ID: `com.duolingo`
+- Country: US
+- Language parameter: English (`en`)
+- Sorting: Newest
+- Sample size: 100 reviews
+
+### Data Retrieval
+- Successfully retrieved 100 reviews.
+- 11 fields returned, consistent with the Notion test.
+
+### Data Quality
+- No missing values in `reviewId`, `content`, `score`, `thumbsUpCount`, or `at`.
+- 7% missing values in `reviewCreatedVersion` and `appVersion`.
+- All 100 records had missing `replyContent` and `repliedAt`.
+
+### Preliminary Analytical Value
+The retrieved reviews contain feedback about:
+- Learning experience and course usefulness
+- Lesson length and course structure
+- Subscription pricing and billing experience
+- User interface and app icon design
+- Learning engagement and family use
+
+### Data Quality Observation
+At least one non-English review appeared despite setting the language parameter to English. This suggests that language filtering should be independently validated before building an English-only analysis pipeline.
+
+### Pagination and Repeatability Test
+
+- First batch: 100 reviews retrieved successfully.
+- Second batch: 100 reviews retrieved successfully using the continuation token.
+- Continuation token remained available after the second batch.
+- Duplicate review IDs across the two batches: 0.
+
+**Preliminary finding:** Pagination worked successfully in this test. A total of 200 reviews were retrieved across two consecutive batches, with no duplicate review IDs detected.
+
+**Limitation:** This result demonstrates successful pagination under the current test conditions only. It does not establish long-term repeatability or guaranteed access.
+
+### Current Status
+
+Initial retrieval, metadata inspection, content quality assessment, and pagination validation completed.
+## Spotify Google Play Review Test
+
+### Test Configuration
+- App: Spotify
+- Package ID: `com.spotify.music`
+- Country: US
+- Language parameter: English (`en`)
+- Sorting: Newest
+- Initial sample size: 100 reviews
+
+### Data Retrieval
+- Successfully retrieved 100 reviews in the first batch.
+- 11 fields returned, consistent with the Notion and Duolingo tests.
+
+### Data Quality
+- No missing values in `reviewId`, `content`, `score`, `thumbsUpCount`, or `at`.
+- 14% missing values in `reviewCreatedVersion` and `appVersion`.
+- 88% missing values in `replyContent` and `repliedAt`.
+- 12 reviews contained developer reply information.
+
+### Preliminary Analytical Value
+The retrieved reviews contain feedback about:
+- Music and listening experience
+- Advertising experience
+- Premium subscription value
+- App design and product changes
+- Brand and product perception
+
+### Data Quality Observation
+Some non-English reviews appeared despite setting the language parameter to English. Language detection and filtering should be considered for an English-only analysis pipeline.
+
+Developer reply fields were populated for 12 out of 100 reviews, showing that reply-related information can be available in the retrieved dataset.
+
+### Pagination and Repeatability Test
+- First batch: 100 reviews retrieved successfully.
+- Second batch: 100 reviews retrieved successfully using the continuation token.
+- Continuation token remained available after the second batch.
+- Duplicate review IDs across the two batches: 0.
+
+**Preliminary finding:** Pagination worked successfully under the current test conditions. A total of 200 reviews were retrieved across two consecutive batches, with no duplicate review IDs detected.
+
+**Limitation:** This small-scale test does not establish long-term repeatability or guaranteed access.
+
+### Current Status
+Initial retrieval, metadata inspection, content quality assessment, and pagination validation completed.
