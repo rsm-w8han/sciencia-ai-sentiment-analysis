@@ -148,3 +148,72 @@ Developer reply fields were populated for 12 out of 100 reviews, showing that re
 
 ### Current Status
 Initial retrieval, metadata inspection, content quality assessment, and pagination validation completed.
+# Product Issue Analysis: Notion, Duolingo, and Spotify
+
+## 1. Objective
+
+This analysis examines negative user reviews from three Google Play applications: Notion, Duolingo, and Spotify. The objective is to identify recurring product issues and compare user dissatisfaction across different product categories.
+
+The analysis uses keyword-based multi-label classification, followed by manual review and correction of selected comments.
+
+## 2. Dataset
+
+The analysis includes 84 reviews classified as negative:
+
+- Notion: 35 reviews
+- Duolingo: 22 reviews
+- Spotify: 27 reviews
+
+Each review can be assigned to multiple issue categories. Issue prevalence is calculated as the number of negative reviews mentioning a particular issue divided by the total number of negative reviews for that application.
+
+## 3. Key Findings
+
+### Notion: Functionality and Performance
+
+The most frequently identified issues are Features and Functionality (34.29%) and Performance (34.29%). Bugs and Errors (25.71%), Usability (22.86%), and Login and Access (20.00%) are also notable.
+
+Users frequently report difficulties with mobile editing, search, copying text, login processes, and application stability.
+
+**Product implication:** Improving core mobile functionality, reliability, and usability may be more valuable than introducing additional features.
+
+### Duolingo: Content Quality and Learning Experience
+
+Content Quality represents 40.91% of negative reviews, followed by Product Design (22.73%) and Features and Functionality (27.27%).
+
+Users express concerns about translation accuracy, lesson quality, learning effectiveness, and changes to the product experience.
+
+**Product implication:** Improving educational content accuracy and practical learning value should be a priority.
+
+### Spotify: Pricing and Playback Experience
+
+Pricing is the most frequently identified issue (59.26%), followed by Playback Experience (40.74%) and Advertising (22.22%).
+
+Users frequently mention restrictions on free accounts, dissatisfaction with subscription value, advertisements, and playback problems.
+
+**Product implication:** Spotify could investigate the perceived value of Premium subscriptions, free-tier restrictions, advertising experience, and playback reliability.
+
+## 4. Cross-Product Comparison
+
+The three applications exhibit different patterns of user dissatisfaction:
+
+- Notion: Functional and technical experience.
+- Duolingo: Educational content and learning value.
+- Spotify: Monetization and playback experience.
+
+This suggests that product-level sentiment analysis should be combined with issue-level classification. Overall sentiment scores alone cannot explain the specific reasons behind user dissatisfaction.
+
+## 5. Methodology and Limitations
+
+- Reviews were collected using the unofficial `google-play-scraper` Python package.
+- The dataset contains 200 reviews per application, collected in two batches.
+- Language detection and VADER sentiment analysis were used as preliminary classification methods.
+- Selected sentiment predictions and issue labels were manually reviewed.
+- Issue classification uses a keyword-based multi-label approach.
+- One review may match multiple issue categories, so category percentages may sum to more than 100%.
+- The sample is limited to a small number of recent reviews and is not representative of all users.
+- Keyword matching may miss contextual meaning or produce incorrect classifications.
+- These findings should be treated as preliminary product insights rather than statistically representative conclusions.
+
+## 6. Conclusion
+
+Combining sentiment analysis with product issue classification provides more actionable insights than sentiment analysis alone. The findings demonstrate how user feedback can help identify different product priorities across productivity, education, and entertainment applications.
