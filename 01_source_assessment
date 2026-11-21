@@ -1,1 +1,31 @@
 
+# Data Source Assessment
+
+## Project Overview
+
+Sciencia AI is a client sentiment analytics platform designed to analyze user feedback and identify actionable business insights.
+
+## Initial Source Assessment
+
+The following platforms were reviewed during the preliminary research:
+
+- Google Play
+- G2
+- Amazon
+- Reddit
+- Steam
+
+## Validation Status
+
+The initial assessment was primarily based on official documentation.
+
+Actual data accessibility, review text availability, metadata completeness, and repeatability still require practical validation.
+
+## Next Steps
+
+1. Conduct a bounded Google Play review retrieval test.
+2. Verify review text and metadata.
+3. Test pagination and repeatability.
+4. Confirm G2 API access availability.
+5. Compare the practical analytical value of retrieved samples.
+
