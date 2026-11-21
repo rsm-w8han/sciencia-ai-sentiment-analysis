@@ -1,1 +1,38 @@
 
+# Google Play Data Retrieval Test
+
+## Test Objective
+
+Evaluate the practical accessibility and analytical usefulness of Google Play app reviews.
+
+## Test Configuration
+
+| Parameter | Setting |
+|---|---|
+| Collection Method | google-play-scraper |
+| Apps | Notion, Duolingo, Spotify |
+| Reviews per App | 100 |
+| Language | English |
+| Country | United States |
+| Sorting | Newest |
+
+## Test Results
+
+| App | Retrieval Status | Reviews Retrieved | Text Completeness |
+|---|---|---:|---|
+| Notion | Not yet tested | - | - |
+| Duolingo | Not yet tested | - | - |
+| Spotify | Not yet tested | - | - |
+
+## Technical Validation
+
+- Review text availability: Not yet validated
+- Metadata completeness: Not yet validated
+- Pagination: Not yet validated
+- Repeatability: Not yet validated
+- Access limitations: Not yet validated
+
+## Observations
+
+To be updated after practical testing.
+
