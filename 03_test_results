@@ -1,38 +1,54 @@
+## Notion Google Play Review Test
 
-# Google Play Data Retrieval Test
+### Test Configuration
+- App: Notion
+- Package ID: `notion.id`
+- Country: US
+- Language: English
+- Sorting: Newest
+- Initial sample size: 100 reviews
 
-## Test Objective
+### Data Retrieval
+- Successfully retrieved 100 reviews.
+- A continuation token was returned, indicating that pagination is available for testing.
+- Data was retrieved using `google-play-scraper`, an unofficial third-party Python package.
 
-Evaluate the practical accessibility and analytical usefulness of Google Play app reviews.
+### Available Fields
+11 fields were returned:
+- `reviewId`
+- `userName`
+- `userImage`
+- `content`
+- `score`
+- `thumbsUpCount`
+- `reviewCreatedVersion`
+- `at`
+- `replyContent`
+- `repliedAt`
+- `appVersion`
 
-## Test Configuration
+### Data Quality
+- No missing values in `reviewId`, `content`, `score`, `thumbsUpCount`, or `at`.
+- 12% missing values in `reviewCreatedVersion` and `appVersion`.
+- All 100 records had missing `replyContent` and `repliedAt`.
 
-| Parameter | Setting |
-|---|---|
-| Collection Method | google-play-scraper |
-| Apps | Notion, Duolingo, Spotify |
-| Reviews per App | 100 |
-| Language | English |
-| Country | United States |
-| Sorting | Newest |
+### Preliminary Analytical Value
+The retrieved review text contains actionable feedback about:
+- App performance
+- Login issues
+- App crashes and stability
+- AI feature direction
+- Cross-device synchronization
+- Overall product usefulness
 
-## Test Results
+The data appears suitable for an initial prototype of sentiment and topic analysis.
 
-| App | Retrieval Status | Reviews Retrieved | Text Completeness |
-|---|---|---:|---|
-| Notion | Not yet tested | - | - |
-| Duolingo | Not yet tested | - | - |
-| Spotify | Not yet tested | - | - |
+### Limitations
+- Only 100 recent reviews from one app have been tested.
+- Pagination and duplicate behavior still require validation.
+- The absence of developer replies in this sample limits reply-related analysis.
+- The scraper is unofficial; this test does not establish official API access, long-term availability, or permission for unrestricted collection.
 
-## Technical Validation
-
-- Review text availability: Not yet validated
-- Metadata completeness: Not yet validated
-- Pagination: Not yet validated
-- Repeatability: Not yet validated
-- Access limitations: Not yet validated
-
-## Observations
-
-To be updated after practical testing.
+### Current Status
+Initial retrieval and field-level data quality checks completed. Pagination and repeatability validation pending.
 
