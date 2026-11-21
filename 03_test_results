@@ -49,6 +49,13 @@ The data appears suitable for an initial prototype of sentiment and topic analys
 - The absence of developer replies in this sample limits reply-related analysis.
 - The scraper is unofficial; this test does not establish official API access, long-term availability, or permission for unrestricted collection.
 
-### Current Status
-Initial retrieval and field-level data quality checks completed. Pagination and repeatability validation pending.
+### Pagination and Repeatability Test
 
+- First batch: 100 reviews retrieved successfully.
+- Second batch: 100 reviews retrieved successfully using the continuation token.
+- Continuation token remained available after the second batch.
+- Duplicate review IDs across the two batches: 0.
+
+**Preliminary finding:** Pagination worked successfully in this test, allowing retrieval of 200 reviews across two consecutive batches without duplicate review IDs.
+
+**Limitation:** This is a small-scale test and does not establish long-term repeatability or guaranteed access.
