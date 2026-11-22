@@ -1,219 +1,102 @@
-## Notion Google Play Review Test
+# Google Play Data Collection Test Results
 
-### Test Configuration
-- App: Notion
-- Package ID: `notion.id`
-- Country: US
-- Language: English
-- Sorting: Newest
-- Initial sample size: 100 reviews
+## 1. Test Objective
 
-### Data Retrieval
-- Successfully retrieved 100 reviews.
-- A continuation token was returned, indicating that pagination is available for testing.
-- Data was retrieved using `google-play-scraper`, an unofficial third-party Python package.
+The objective of this test was to verify whether user reviews could be practically retrieved from Google Play and to evaluate the usability of the returned data for the Sciencia AI sentiment analytics project.
 
-### Available Fields
-11 fields were returned:
+The test focused on review text availability, metadata completeness, batch-level duplication, and language quality.
+
+## 2. Test Configuration
+
+| Item | Description |
+|---|---|
+| Data source | Google Play |
+| Collection package | `google-play-scraper` |
+| Package type | Unofficial third-party Python package |
+| Applications tested | Notion, Duolingo, Spotify |
+| Reviews per application | 200 |
+| Batch size | 100 |
+| Batches per application | 2 |
+| Total reviews collected | 600 |
+
+## 3. Collection Results
+
+| Application | Batch 1 | Batch 2 | Total |
+|---|---:|---:|---:|
+| Notion | 100 | 100 | 200 |
+| Duolingo | 100 | 100 | 200 |
+| Spotify | 100 | 100 | 200 |
+| **Total** | **300** | **300** | **600** |
+
+A total of 600 review records were retrieved across the three applications.
+
+## 4. Duplicate ID Validation
+
+Review IDs were compared between the two collection batches for each application.
+
+| Application | Duplicate IDs Across Batches |
+|---|---:|
+| Notion | 0 |
+| Duolingo | 0 |
+| Spotify | 0 |
+
+No duplicate review IDs were found between the tested batches.
+
+This result supports the usability of the tested batch retrieval process but does not establish long-term repeatability or guarantee that future retrievals will remain duplication-free.
+
+## 5. Review Field Availability
+
+The returned records contained review text, ratings, timestamps, review IDs, and additional metadata.
+
+The core fields used in the preliminary analysis were:
+
 - `reviewId`
-- `userName`
-- `userImage`
 - `content`
 - `score`
-- `thumbsUpCount`
-- `reviewCreatedVersion`
 - `at`
-- `replyContent`
-- `repliedAt`
-- `appVersion`
 
-### Data Quality
-- No missing values in `reviewId`, `content`, `score`, `thumbsUpCount`, or `at`.
-- 12% missing values in `reviewCreatedVersion` and `appVersion`.
-- All 100 records had missing `replyContent` and `repliedAt`.
+These core fields were complete in the initial 100-review batches for each application.
 
-### Preliminary Analytical Value
-The retrieved review text contains actionable feedback about:
-- App performance
-- Login issues
-- App crashes and stability
-- AI feature direction
-- Cross-device synchronization
-- Overall product usefulness
+Optional metadata, including app version and developer response fields, was less consistently available.
 
-The data appears suitable for an initial prototype of sentiment and topic analysis.
+## 6. Language Filtering Results
 
-### Limitations
-- Only 100 recent reviews from one app have been tested.
-- Pagination and duplicate behavior still require validation.
-- The absence of developer replies in this sample limits reply-related analysis.
-- The scraper is unofficial; this test does not establish official API access, long-term availability, or permission for unrestricted collection.
+The collection request used an English-language parameter. However, the returned reviews still included non-English and unclassified records.
 
-### Pagination and Repeatability Test
+Additional language identification and manual review of selected short phrases were performed.
 
-- First batch: 100 reviews retrieved successfully.
-- Second batch: 100 reviews retrieved successfully using the continuation token.
-- Continuation token remained available after the second batch.
-- Duplicate review IDs across the two batches: 0.
+| Application | Collected Reviews | Retained English Reviews |
+|---|---:|---:|
+| Notion | 200 | 175 |
+| Duolingo | 200 | 161 |
+| Spotify | 200 | 153 |
+| **Total** | **600** | **489** |
 
-**Preliminary finding:** Pagination worked successfully in this test, allowing retrieval of 200 reviews across two consecutive batches without duplicate review IDs.
+A total of 489 reviews were retained for preliminary sentiment analysis.
 
-**Limitation:** This is a small-scale test and does not establish long-term repeatability or guaranteed access.
-## Duolingo Google Play Review Test
+Language classification is approximate, particularly for short reviews, mixed-language content, and ambiguous expressions.
 
-### Test Configuration
-- App: Duolingo
-- Package ID: `com.duolingo`
-- Country: US
-- Language parameter: English (`en`)
-- Sorting: Newest
-- Sample size: 100 reviews
+## 7. Key Findings
 
-### Data Retrieval
-- Successfully retrieved 100 reviews.
-- 11 fields returned, consistent with the Notion test.
+The bounded test demonstrated that:
 
-### Data Quality
-- No missing values in `reviewId`, `content`, `score`, `thumbsUpCount`, or `at`.
-- 7% missing values in `reviewCreatedVersion` and `appVersion`.
-- All 100 records had missing `replyContent` and `repliedAt`.
+- Review text and core metadata could be retrieved for all three tested applications.
+- Two batches of 100 reviews could be collected per application.
+- No duplicate review IDs were found between the tested batches.
+- Optional metadata was not consistently populated.
+- Additional language filtering was necessary before analysis.
 
-### Preliminary Analytical Value
-The retrieved reviews contain feedback about:
-- Learning experience and course usefulness
-- Lesson length and course structure
-- Subscription pricing and billing experience
-- User interface and app icon design
-- Learning engagement and family use
+## 8. Limitations
 
-### Data Quality Observation
-At least one non-English review appeared despite setting the language parameter to English. This suggests that language filtering should be independently validated before building an English-only analysis pipeline.
+- The collection relied on an unofficial third-party package rather than an official Google API integration.
+- The test covered only three applications and a limited sample of reviews.
+- No duplicate IDs in two tested batches do not establish long-term repeatability.
+- Language detection and manual corrections may introduce classification errors.
+- Future access and retrieval behavior may change.
 
-### Pagination and Repeatability Test
+## 9. Conclusion
 
-- First batch: 100 reviews retrieved successfully.
-- Second batch: 100 reviews retrieved successfully using the continuation token.
-- Continuation token remained available after the second batch.
-- Duplicate review IDs across the two batches: 0.
+The bounded Google Play test provides preliminary evidence that review data can be retrieved and used for exploratory sentiment analysis under the tested conditions.
 
-**Preliminary finding:** Pagination worked successfully in this test. A total of 200 reviews were retrieved across two consecutive batches, with no duplicate review IDs detected.
+Further validation is needed before making claims about long-term reliability, scalability, or production-level ingestion.
 
-**Limitation:** This result demonstrates successful pagination under the current test conditions only. It does not establish long-term repeatability or guaranteed access.
-
-### Current Status
-
-Initial retrieval, metadata inspection, content quality assessment, and pagination validation completed.
-## Spotify Google Play Review Test
-
-### Test Configuration
-- App: Spotify
-- Package ID: `com.spotify.music`
-- Country: US
-- Language parameter: English (`en`)
-- Sorting: Newest
-- Initial sample size: 100 reviews
-
-### Data Retrieval
-- Successfully retrieved 100 reviews in the first batch.
-- 11 fields returned, consistent with the Notion and Duolingo tests.
-
-### Data Quality
-- No missing values in `reviewId`, `content`, `score`, `thumbsUpCount`, or `at`.
-- 14% missing values in `reviewCreatedVersion` and `appVersion`.
-- 88% missing values in `replyContent` and `repliedAt`.
-- 12 reviews contained developer reply information.
-
-### Preliminary Analytical Value
-The retrieved reviews contain feedback about:
-- Music and listening experience
-- Advertising experience
-- Premium subscription value
-- App design and product changes
-- Brand and product perception
-
-### Data Quality Observation
-Some non-English reviews appeared despite setting the language parameter to English. Language detection and filtering should be considered for an English-only analysis pipeline.
-
-Developer reply fields were populated for 12 out of 100 reviews, showing that reply-related information can be available in the retrieved dataset.
-
-### Pagination and Repeatability Test
-- First batch: 100 reviews retrieved successfully.
-- Second batch: 100 reviews retrieved successfully using the continuation token.
-- Continuation token remained available after the second batch.
-- Duplicate review IDs across the two batches: 0.
-
-**Preliminary finding:** Pagination worked successfully under the current test conditions. A total of 200 reviews were retrieved across two consecutive batches, with no duplicate review IDs detected.
-
-**Limitation:** This small-scale test does not establish long-term repeatability or guaranteed access.
-
-### Current Status
-Initial retrieval, metadata inspection, content quality assessment, and pagination validation completed.
-# Product Issue Analysis: Notion, Duolingo, and Spotify
-
-## 1. Objective
-
-This analysis examines negative user reviews from three Google Play applications: Notion, Duolingo, and Spotify. The objective is to identify recurring product issues and compare user dissatisfaction across different product categories.
-
-The analysis uses keyword-based multi-label classification, followed by manual review and correction of selected comments.
-
-## 2. Dataset
-
-The analysis includes 84 reviews classified as negative:
-
-- Notion: 35 reviews
-- Duolingo: 22 reviews
-- Spotify: 27 reviews
-
-Each review can be assigned to multiple issue categories. Issue prevalence is calculated as the number of negative reviews mentioning a particular issue divided by the total number of negative reviews for that application.
-
-## 3. Key Findings
-
-### Notion: Functionality and Performance
-
-The most frequently identified issues are Features and Functionality (34.29%) and Performance (34.29%). Bugs and Errors (25.71%), Usability (22.86%), and Login and Access (20.00%) are also notable.
-
-Users frequently report difficulties with mobile editing, search, copying text, login processes, and application stability.
-
-**Product implication:** Improving core mobile functionality, reliability, and usability may be more valuable than introducing additional features.
-
-### Duolingo: Content Quality and Learning Experience
-
-Content Quality represents 40.91% of negative reviews, followed by Product Design (22.73%) and Features and Functionality (27.27%).
-
-Users express concerns about translation accuracy, lesson quality, learning effectiveness, and changes to the product experience.
-
-**Product implication:** Improving educational content accuracy and practical learning value should be a priority.
-
-### Spotify: Pricing and Playback Experience
-
-Pricing is the most frequently identified issue (59.26%), followed by Playback Experience (40.74%) and Advertising (22.22%).
-
-Users frequently mention restrictions on free accounts, dissatisfaction with subscription value, advertisements, and playback problems.
-
-**Product implication:** Spotify could investigate the perceived value of Premium subscriptions, free-tier restrictions, advertising experience, and playback reliability.
-
-## 4. Cross-Product Comparison
-
-The three applications exhibit different patterns of user dissatisfaction:
-
-- Notion: Functional and technical experience.
-- Duolingo: Educational content and learning value.
-- Spotify: Monetization and playback experience.
-
-This suggests that product-level sentiment analysis should be combined with issue-level classification. Overall sentiment scores alone cannot explain the specific reasons behind user dissatisfaction.
-
-## 5. Methodology and Limitations
-
-- Reviews were collected using the unofficial `google-play-scraper` Python package.
-- The dataset contains 200 reviews per application, collected in two batches.
-- Language detection and VADER sentiment analysis were used as preliminary classification methods.
-- Selected sentiment predictions and issue labels were manually reviewed.
-- Issue classification uses a keyword-based multi-label approach.
-- One review may match multiple issue categories, so category percentages may sum to more than 100%.
-- The sample is limited to a small number of recent reviews and is not representative of all users.
-- Keyword matching may miss contextual meaning or produce incorrect classifications.
-- These findings should be treated as preliminary product insights rather than statistically representative conclusions.
-
-## 6. Conclusion
-
-Combining sentiment analysis with product issue classification provides more actionable insights than sentiment analysis alone. The findings demonstrate how user feedback can help identify different product priorities across productivity, education, and entertainment applications.
