@@ -1,1 +1,113 @@
+# Google Play Data Collection Methodology
 
+## 1. Overview
+
+This document describes the methodology used to conduct a preliminary Google Play review data collection test for the Sciencia AI sentiment analytics project.
+
+The purpose of the test was to evaluate whether publicly accessible app reviews could be retrieved and whether the returned data was suitable for preliminary sentiment analysis and product issue classification.
+
+## 2. Data Source and Collection Tool
+
+**Data Source:** Google Play
+
+**Collection Tool:** `google-play-scraper`
+
+**Programming Language:** Python
+
+The `google-play-scraper` package is an unofficial third-party tool. It was used for exploratory data collection and practical accessibility testing.
+
+This implementation should not be interpreted as official Google API integration or evidence of guaranteed long-term access.
+
+## 3. Application Selection
+
+Three applications from different product categories were selected:
+
+| Application | General Category |
+|---|---|
+| Notion | Productivity |
+| Duolingo | Education and Language Learning |
+| Spotify | Music Streaming |
+
+Using multiple applications allowed the initial test to examine review data across different types of digital products.
+
+## 4. Collection Scope
+
+The test collected 200 reviews per application.
+
+| Metric | Result |
+|---|---:|
+| Applications | 3 |
+| Reviews per application | 200 |
+| Batches per application | 2 |
+| Reviews per batch | 100 |
+| Total collected reviews | 600 |
+
+The collection was performed in two batches of 100 reviews for each application.
+
+## 5. Data Fields
+
+The returned records included the following fields:
+
+| Field | Description |
+|---|---|
+| `reviewId` | Unique identifier of a review |
+| `userName` | Reviewer display name |
+| `userImage` | Reviewer profile image reference |
+| `content` | Review text |
+| `score` | Star rating |
+| `thumbsUpCount` | Number of helpful votes |
+| `reviewCreatedVersion` | App version associated with the review |
+| `at` | Review timestamp |
+| `replyContent` | Developer response text, if available |
+| `repliedAt` | Developer response timestamp, if available |
+| `appVersion` | App version metadata, if available |
+
+The `app` field was also added to identify the application associated with each review.
+
+Not all optional metadata fields were populated for every record.
+
+## 6. Data Collection Validation
+
+The collected data was examined through several preliminary checks:
+
+- Review text availability
+- Review ID duplication across the two batches
+- Availability of ratings and timestamps
+- Completeness of optional metadata
+- Language identification and filtering
+
+No duplicate review IDs were found between the two batches for each tested application.
+
+The collection request used an English-language parameter. However, this parameter did not strictly guarantee that all returned reviews were written in English. Additional language identification and filtering were therefore performed during preprocessing.
+
+## 7. Initial Collection Results
+
+A total of 600 reviews were collected across the three applications.
+
+After preliminary language identification and filtering, 489 reviews were retained as English-language reviews for subsequent analysis.
+
+| Application | Collected Reviews | Retained Reviews |
+|---|---:|---:|
+| Notion | 200 | 175 |
+| Duolingo | 200 | 161 |
+| Spotify | 200 | 153 |
+| **Total** | **600** | **489** |
+
+The retained language labels are approximate and may contain classification errors.
+
+## 8. Limitations
+
+- The collection relied on an unofficial third-party package.
+- The test covered only three applications and a limited number of reviews.
+- No duplicate IDs were found in the tested batches, but long-term repeatability has not been established.
+- Language filtering required additional preprocessing.
+- Optional metadata was not consistently available.
+- Access behavior may change over time.
+
+## 9. Next Steps
+
+- Preserve the collection code and document the collection parameters.
+- Continue evaluating data completeness and retrieval behavior.
+- Investigate access limitations and repeatability.
+- Keep raw review data separate from public repository documentation.
+- Use the validated dataset for exploratory sentiment and issue classification analysis.
