@@ -1,5 +1,4 @@
-# sciencia-ai-sentiment-analysis
-Data source assessment and review data validation for Sciencia AI sentiment analytics platform
+
 # Sciencia AI – Sentiment Analysis
 
 **Data Source Assessment and Review Data Validation for a User Sentiment Analytics Platform**
