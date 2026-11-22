@@ -1,20 +1,51 @@
+# Preliminary Sentiment Analysis Report
 
-# Project Progress
+## 1. Objective
 
-## Current Phase: Data Source Validation
+This report presents the preliminary sentiment analysis and product issue classification conducted as part of the Sciencia AI sentiment analytics project.
 
-### Completed
-- Initial data source research
-- Preliminary source comparison
-- GitHub repository setup
+The objective is to explore how user reviews can be transformed into structured insights that help identify customer sentiment and product-related pain points.
 
-### In Progress
-- Google Play practical retrieval test
-- G2 API access assessment
+## 2. Dataset Overview
 
-### Pending
-- Metadata quality assessment
-- Pagination and repeatability testing
-- Data source comparison
-- Updated source recommendation
+The analysis used 489 reviews retained as English-language reviews after preliminary language identification and filtering.
 
+The dataset covered three applications:
+
+- Notion
+- Duolingo
+- Spotify
+
+| Application | Reviews Analyzed |
+|---|---:|
+| Notion | 175 |
+| Duolingo | 161 |
+| Spotify | 153 |
+| **Total** | **489** |
+
+## 3. Sentiment Analysis Method
+
+VADER (Valence Aware Dictionary and sEntiment Reasoner) was used to estimate the sentiment polarity of each review.
+
+The compound score was used to assign sentiment labels:
+
+| Compound Score | Sentiment |
+|---|---|
+| Greater than or equal to 0.05 | Positive |
+| Less than or equal to -0.05 | Negative |
+| Between -0.05 and 0.05 | Neutral |
+
+A small number of predictions were manually reviewed and corrected when the original classification appeared inconsistent with the review's expressed meaning.
+
+Manual corrections were recorded separately from the original VADER predictions.
+
+## 4. Overall Sentiment Distribution
+
+| Sentiment | Number of Reviews | Percentage |
+|---|---:|---:|
+| Positive | 346 | 70.8% |
+| Negative | 84 | 17.2% |
+| Neutral | 59 | 12.1% |
+| **Total** | **489** | **100%** |
+
+The preliminary results indicate that positive reviews account
