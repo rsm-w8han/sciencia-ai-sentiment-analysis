@@ -1,0 +1,307 @@
+# Preliminary User Sentiment Analysis
+## Cross-App Analysis of Notion, Duolingo, and Spotify Reviews
+
+**Project:** Sciencia AI — Sentiment Analytics Platform  
+**Research Stage:** Phase I — Data Analysis Prototype  
+**Dataset:** 489 English-language Google Play Reviews
+
+### 1. Executive Summary
+
+This analysis explores how public app reviews can be transformed into actionable product insights through sentiment analysis and issue classification.
+
+Using 489 English-language reviews from Notion, Duolingo, and Spotify, the analysis applies VADER sentiment analysis and a multi-label, keyword-based issue classification framework.
+
+The results show that the three applications exhibit distinct patterns of user dissatisfaction:
+
+- **Notion:** Feature functionality, performance, and usability issues.
+- **Duolingo:** Content quality and learning experience issues.
+- **Spotify:** Pricing and playback experience issues.
+
+A total of 84 negative reviews were identified. Of these, 78 were assigned at least one issue category, resulting in a preliminary issue-labeling coverage of 92.86%.
+
+These findings demonstrate the potential of combining sentiment detection with issue classification to generate more specific product feedback insights than sentiment analysis alone.
+
+### 2. Dataset Overview
+
+The analysis uses the English-language dataset collected from Google Play.
+
+| Application | Reviews |
+|---|---:|
+| Notion | 175 |
+| Duolingo | 161 |
+| Spotify | 153 |
+| **Total** | **489** |
+
+The dataset contains 14 analytical fields, including:
+
+- Application name
+- Numerical rating
+- Review timestamp
+- App version
+- Language classification
+- VADER positive, neutral, and negative scores
+- Compound sentiment score
+- Original sentiment classification
+- Final sentiment classification
+- Validation method
+- Rating-derived sentiment
+- Issue labels
+
+Reviewer names, profile image URLs, and other unnecessary reviewer metadata were excluded from the cleaned analytical dataset.
+
+### 3. Sentiment Analysis Methodology
+
+#### 3.1 Model Selection
+
+VADER (Valence Aware Dictionary and sEntiment Reasoner) was selected as the initial sentiment analysis method.
+
+VADER is a lexicon- and rule-based sentiment analysis tool designed to evaluate sentiment in social media-style text.
+
+It generates a compound score ranging from -1 to +1.
+
+The following thresholds were used:
+
+| Compound Score | Classification |
+|---|---|
+| ≥ 0.05 | Positive |
+| ≤ -0.05 | Negative |
+| Between -0.05 and 0.05 | Neutral |
+
+#### 3.2 Manual Validation
+
+After the initial classification, selected comments were manually reviewed to identify obvious contextual misclassifications.
+
+Three clearly positive reviews initially classified as negative were corrected.
+
+A `validation_method` field was retained to distinguish VADER-generated labels from manually corrected labels.
+
+This step provides a basic audit trail, but it does not constitute a comprehensive human-labeled validation dataset.
+
+### 4. Overall Sentiment Distribution
+
+The final sentiment distribution across the 489 reviews is:
+
+| Sentiment | Count | Percentage |
+|---|---:|---:|
+| Positive | 346 | 70.8% |
+| Negative | 84 | 17.2% |
+| Neutral | 59 | 12.1% |
+| **Total** | **489** | **100%** |
+
+The majority of reviews were classified as positive.
+
+However, the 84 negative reviews provide a useful starting point for investigating product weaknesses and recurring user complaints.
+
+These percentages describe the sentiment classifications within the collected sample, not the overall satisfaction levels of each application's entire user base.
+
+### 5. Issue Classification Framework
+
+#### 5.1 Objective
+
+Sentiment classification identifies whether a review expresses positive, negative, or neutral sentiment.
+
+However, sentiment alone does not explain why a user is dissatisfied.
+
+To extract more actionable insights, a multi-label issue classification framework was developed for negative reviews.
+
+#### 5.2 Issue Categories
+
+Twelve issue categories were established:
+
+| Category | Description |
+|---|---|
+| Advertising | Excessive or disruptive advertisements |
+| Bugs and Errors | Software bugs and unexpected errors |
+| Content Quality | Content accuracy and quality issues |
+| Data Loss and Reliability | Data loss and reliability concerns |
+| Features and Functionality | Missing or malfunctioning features |
+| Login and Access | Login and account access issues |
+| Performance | Speed, lag, and performance issues |
+| Playback Experience | Audio playback and playback controls |
+| Pricing | Subscription costs and payment concerns |
+| Product Design | Product design and interaction issues |
+| Recommendations | Irrelevant or unsatisfactory recommendations |
+| Usability | Difficulty of use and navigation |
+
+#### 5.3 Classification Approach
+
+A keyword-based multi-label classification method was implemented.
+
+The process included:
+
+1. Identifying relevant keywords for each issue category.
+2. Applying regular-expression word-boundary matching to reduce unintended substring matches.
+3. Reviewing negative comments that did not receive any issue labels.
+4. Manually supplementing selected actionable comments with relevant categories.
+5. Preserving multiple labels when a comment described more than one issue.
+
+This approach allows one review to represent multiple user pain points.
+
+#### 5.4 Classification Coverage
+
+| Metric | Result |
+|---|---:|
+| Total negative reviews | 84 |
+| Reviews with at least one issue label | 78 |
+| Reviews without issue labels | 6 |
+| Issue-labeling coverage | 92.86% |
+
+The coverage rate is calculated as:
+
+Issue-labeling coverage = 78 / 84 × 100% = 92.86%.
+
+This metric indicates how many negative reviews received at least one issue label. It should not be interpreted as classification accuracy.
+
+### 6. Cross-App Issue Analysis
+
+Issue prevalence is calculated using the total number of negative reviews for each application as the denominator.
+
+Because the classification framework is multi-label, percentages across categories may exceed 100%.
+
+#### 6.1 Notion
+
+| Issue Category | Count | Prevalence |
+|---|---:|---:|
+| Features and Functionality | 12 | 34.29% |
+| Performance | 12 | 34.29% |
+| Bugs and Errors | 9 | 25.71% |
+| Usability | 8 | 22.86% |
+| Login and Access | 7 | 20.00% |
+
+**Key Finding**
+
+Notion's negative feedback is concentrated around functionality, performance, and usability.
+
+Some users describe difficulties completing straightforward tasks, navigating complex features, or accessing the application reliably.
+
+**Potential Product Implications**
+
+- Investigate performance bottlenecks in frequently used workflows.
+- Simplify complex user interactions.
+- Review the reliability of core features and account access.
+- Evaluate whether feature complexity creates unnecessary friction for users.
+
+#### 6.2 Duolingo
+
+| Issue Category | Count | Prevalence |
+|---|---:|---:|
+| Content Quality | 9 | 40.91% |
+| Features and Functionality | 6 | 27.27% |
+| Product Design | 5 | 22.73% |
+| Advertising | 3 | 13.64% |
+
+**Key Finding**
+
+Content quality is the most prominent issue category in Duolingo's negative reviews.
+
+User feedback includes concerns about translation accuracy, learning content, and aspects of the learning experience.
+
+**Potential Product Implications**
+
+- Review translation accuracy and language-specific content.
+- Evaluate the effectiveness of lesson design.
+- Investigate whether learning interactions prioritize the right information.
+- Examine the impact of advertisements on the learning experience.
+
+#### 6.3 Spotify
+
+| Issue Category | Count | Prevalence |
+|---|---:|---:|
+| Pricing | 16 | 59.26% |
+| Playback Experience | 11 | 40.74% |
+| Advertising | 6 | 22.22% |
+
+**Key Finding**
+
+Pricing and playback experience are the most prominent issues in Spotify's negative reviews.
+
+Some users express dissatisfaction with subscription costs, while others report problems related to music playback.
+
+**Potential Product Implications**
+
+- Evaluate perceived subscription value relative to user expectations.
+- Investigate recurring playback interruptions and functionality issues.
+- Examine how advertising affects the listening experience.
+- Explore whether subscription-related complaints differ across user segments.
+
+### 7. Cross-App Comparison
+
+The three applications exhibit different patterns of dissatisfaction.
+
+| Application | Primary Issue | Secondary Issues |
+|---|---|---|
+| Notion | Features and Functionality / Performance | Bugs, Usability, Login |
+| Duolingo | Content Quality | Features, Product Design |
+| Spotify | Pricing | Playback Experience, Advertising |
+
+**Insight 1: User dissatisfaction is product-specific.**
+
+Different products generate different types of complaints. Productivity tools, educational applications, and entertainment platforms have distinct user expectations.
+
+**Insight 2: Generic sentiment scores provide limited explanations.**
+
+Identifying a review as negative does not explain its underlying cause. Combining sentiment analysis with issue classification creates a more informative feedback structure.
+
+**Insight 3: Product-specific classification may improve analytical value.**
+
+A common issue taxonomy provides consistency across applications, while additional product-specific categories can capture domain-specific user concerns.
+
+### 8. Limitations
+
+**Sample Size and Representativeness**
+
+The analysis is based on 489 reviews from three applications. The sample is limited and not randomly selected. Results should not be generalized to all users.
+
+**Sentiment Classification**
+
+VADER may struggle with sarcasm, contextual meaning, mixed sentiment, spelling errors, and informal language.
+
+The manual corrections were limited and were not evaluated against an independent gold-standard dataset.
+
+**Issue Classification**
+
+Keyword-based matching may produce false positives or miss complaints expressed using unfamiliar wording.
+
+The 92.86% labeling coverage measures classification coverage, not classification accuracy.
+
+**Multi-Label Interpretation**
+
+A review may belong to multiple issue categories. Therefore, category percentages are not mutually exclusive.
+
+**Temporal Limitations**
+
+The current analysis does not establish whether issue patterns change over time or across different app versions.
+
+### 9. Recommendations and Next Steps
+
+#### 9.1 Improve Model Validation
+
+- Develop a manually labeled validation sample.
+- Evaluate sentiment classification using precision, recall, and F1-score.
+- Compare VADER with alternative approaches, including machine-learning and LLM-based methods.
+- Review ambiguous and incorrectly classified comments.
+
+#### 9.2 Improve Issue Classification
+
+- Expand and refine the issue taxonomy.
+- Validate keyword-based labels through human review.
+- Evaluate category-level precision and recall.
+- Explore semantic classification methods to identify issues beyond predefined keywords.
+
+#### 9.3 Expand Business Insights
+
+- Compare negative feedback across app versions.
+- Analyze the relationship between numerical ratings and sentiment.
+- Track issue prevalence over time.
+- Identify frequently co-occurring issues.
+- Develop prioritization frameworks to help product teams identify high-impact user pain points.
+
+### 10. Conclusion
+
+This preliminary analysis demonstrates how public app reviews can be transformed into structured user feedback insights.
+
+By combining sentiment analysis with multi-label issue classification, the prototype moves beyond identifying whether users are satisfied or dissatisfied and begins to explain the reasons behind their feedback.
+
+The findings highlight distinct user pain points across Notion, Duolingo, and Spotify, demonstrating the potential value of a scalable, product-oriented sentiment analytics framework.
+
+Future work should focus on improving data reliability, validating classification quality, and developing more actionable insights for product and business teams.
