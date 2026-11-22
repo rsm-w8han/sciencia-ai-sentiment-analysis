@@ -1,31 +1,77 @@
+# Data Source Comparison
 
-# Data Source Assessment
+## 1. Objective
 
-## Project Overview
+The objective of this assessment is to identify and evaluate potential review data sources for the Sciencia AI sentiment analytics platform.
 
-Sciencia AI is a client sentiment analytics platform designed to analyze user feedback and identify actionable business insights.
+The assessment focuses on practical accessibility, review text availability, metadata completeness, data quality, and suitability for downstream sentiment analysis.
 
-## Initial Source Assessment
+## 2. Evaluation Criteria
 
-The following platforms were reviewed during the preliminary research:
+| Criterion | Description |
+|---|---|
+| Review Text Availability | Whether actual user review text can be retrieved |
+| Metadata Availability | Whether ratings, timestamps, review IDs, and app versions are available |
+| Access Requirements | Whether API credentials, account authorization, or other permissions are required |
+| Practical Accessibility | Whether data retrieval has been successfully tested |
+| Data Quality | Whether the returned data is complete and usable |
+| Repeatability | Whether multiple retrieval batches can be collected consistently |
+| Analytical Suitability | Whether the data supports sentiment analysis and issue classification |
 
-- Google Play
-- G2
-- Amazon
-- Reddit
-- Steam
+## 3. Preliminary Source Comparison
 
-## Validation Status
+| Data Source | Review Text | Access Method | Practical Test Status | Current Assessment |
+|---|---|---|---|---|
+| Google Play | Retrieved in the bounded test | Unofficial third-party Python package | Tested | Suitable for further prototype evaluation |
+| G2 | Not yet verified | API or account-based access, subject to availability | Not yet tested | Access needs to be verified |
+| Other review platforms | Not yet verified | To be investigated | Not yet tested | Requires further assessment |
 
-The initial assessment was primarily based on official documentation.
+## 4. Google Play
 
-Actual data accessibility, review text availability, metadata completeness, and repeatability still require practical validation.
+A bounded data collection test was conducted using the unofficial Python package `google-play-scraper`.
 
-## Next Steps
+Three applications were selected:
 
-1. Conduct a bounded Google Play review retrieval test.
-2. Verify review text and metadata.
-3. Test pagination and repeatability.
-4. Confirm G2 API access availability.
-5. Compare the practical analytical value of retrieved samples.
+- Notion
+- Duolingo
+- Spotify
 
+A total of 600 reviews were collected, with 200 reviews per application.
+
+Two batches of 100 reviews were retrieved for each application. No duplicate review IDs were found between the two batches for each tested application.
+
+The returned data included review text, star ratings, timestamps, review IDs, and additional metadata.
+
+These results demonstrate practical data retrieval under the tested conditions. However, they do not establish official Google API support, guaranteed permission, or long-term reliability.
+
+Repeatability beyond the tested batches has not yet been validated.
+
+## 5. G2
+
+G2 is a potential source of software product reviews.
+
+However, its practical accessibility has not yet been established.
+
+The following questions need to be investigated:
+
+- Is API access available through the current account?
+- Can actual review text be retrieved?
+- What authentication or permission requirements apply?
+- Are useful review metadata and pagination available?
+
+If review text cannot be accessed through authorized methods, G2 will be documented as an access constraint rather than treated as a validated data source.
+
+## 6. Preliminary Conclusion
+
+Google Play is currently the first source selected for prototype-level evaluation because a bounded review retrieval test has been completed.
+
+G2 remains under evaluation until actual review-text accessibility is demonstrated.
+
+Other potential sources will be assessed based on practical accessibility, data quality, and suitability for the project's analytical objectives.
+
+## 7. Next Steps
+
+- Continue documenting Google Play retrieval behavior and access limitations.
+- Verify whether available G2 access supports retrieval of actual review text.
+- Evaluate additional review sources only when their practical accessibility can be tested.
+- Update this comparison as additional evidence becomes available.
