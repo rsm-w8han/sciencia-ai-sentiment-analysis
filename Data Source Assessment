@@ -1,1 +1,157 @@
+# Data Source Assessment
+## Google Play Public App Reviews
 
+**Project:** Sciencia AI — Sentiment Analytics Platform  
+**Research Stage:** Phase I — Data Source Evaluation  
+**Status:** Preliminary Assessment
+
+### 1. Research Objective
+
+The objective of this assessment is to evaluate whether publicly available Google Play reviews can serve as a practical data source for Sciencia AI, a user sentiment analytics platform.
+
+The assessment focuses on four key dimensions:
+
+- Accessibility: Can public reviews be collected in practice?
+- Data quality: Are review text, ratings, timestamps, and other useful fields available?
+- Collection feasibility: Can reviews be retrieved in batches without excessive duplication?
+- Limitations: What technical, operational, and platform-related constraints may affect future data ingestion?
+
+This is an initial feasibility test rather than a production-ready data collection implementation.
+
+### 2. Data Source Overview
+
+Google Play was selected as the initial data source because it provides publicly visible user reviews containing both textual feedback and numerical ratings.
+
+Three applications were selected for testing:
+
+| Application | Product Type | Reviews Collected |
+|---|---|---:|
+| Notion | Productivity and note-taking | 200 |
+| Duolingo | Language learning | 200 |
+| Spotify | Music streaming | 200 |
+| **Total** | | **600** |
+
+These applications represent different product categories, allowing us to evaluate whether the collected data can support comparisons across different types of digital products.
+
+### 3. Data Collection Method
+
+Python's `google-play-scraper` library was used to retrieve publicly available Google Play reviews.
+
+For each application:
+- Two collection batches were executed.
+- Each batch returned 100 reviews.
+- A total of 200 reviews were collected per application.
+- Review IDs were compared across batches to check for duplication.
+
+**Collection results:**
+
+| Metric | Result |
+|---|---:|
+| Applications tested | 3 |
+| Reviews per application | 200 |
+| Total reviews collected | 600 |
+| Duplicate Review IDs between batches | 0 |
+
+The test successfully retrieved review records from all three applications.
+
+### 4. Data Field Assessment
+
+The collected records contained the following fields:
+
+| Field | Description | Assessment |
+|---|---|---|
+| reviewId | Unique review identifier | Available |
+| userName | Public reviewer display name | Available |
+| userImage | Reviewer profile image URL | Available |
+| content | Review text | Available |
+| score | Numerical rating | Available |
+| thumbsUpCount | Helpful votes | Available |
+| at | Review timestamp | Available |
+| reviewCreatedVersion | App version associated with review | Partially missing |
+| replyContent | Developer response | Frequently unavailable |
+| repliedAt | Developer response timestamp | Frequently unavailable |
+| appVersion | App version metadata | Partially missing |
+
+The core fields required for sentiment analysis—review text, rating, timestamp, and review identifier—were successfully retrieved in the initial collection batches.
+
+However, some metadata fields were incomplete. In particular, developer responses were not consistently available, and version-related fields contained missing values.
+
+### 5. Data Quality and Preprocessing
+
+An initial language parameter was used during collection to request English reviews. However, this parameter did not strictly exclude reviews written in other languages.
+
+To improve data quality, an additional language detection step was introduced, followed by manual checks for selected short or ambiguous comments.
+
+The resulting dataset contained:
+
+| Application | Original Reviews | English Reviews Retained |
+|---|---:|---:|
+| Notion | 200 | 175 |
+| Duolingo | 200 | 161 |
+| Spotify | 200 | 153 |
+| **Total** | **600** | **489** |
+
+Approximately 81.5% of the collected records were retained as English-language reviews.
+
+The language filtering process is preliminary. Short comments, mixed-language text, and informal spelling may still lead to incorrect language identification.
+
+### 6. Technical Feasibility Assessment
+
+| Evaluation Dimension | Finding | Assessment |
+|---|---|---|
+| Initial accessibility | Reviews successfully retrieved for all three apps | Feasible in current test |
+| Batch collection | Two batches of 100 reviews per app | Demonstrated |
+| Duplicate detection | No overlapping Review IDs between tested batches | Passed initial check |
+| Core field availability | Review text, score, timestamp, and ID available | Suitable for prototype |
+| Metadata completeness | Some version and developer-response fields missing | Requires consideration |
+| Language filtering | Additional filtering required | Needs improvement |
+| Long-term reliability | Not yet tested over extended periods | Unknown |
+
+### 7. Limitations and Risks
+
+**7.1 Non-official Collection Method**
+
+The `google-play-scraper` library is an unofficial third-party Python tool, not a Google-supported public review API.
+
+Its functionality may be affected by platform changes, access restrictions, rate limits, or changes in the underlying data structure.
+
+The successful initial test should not be interpreted as a guarantee of long-term availability or official authorization.
+
+**7.2 Limited Collection Scope**
+
+The current test collected only 200 reviews per application. This sample is sufficient for an initial prototype but does not establish whether larger-scale or continuous collection is feasible.
+
+**7.3 Incomplete Metadata**
+
+Some app-version and developer-response fields were unavailable. This may limit future analyses involving version-level comparisons or developer response effectiveness.
+
+**7.4 Language Identification**
+
+The initial collection parameter did not guarantee English-only results. Additional language detection was necessary, and its accuracy has not yet been independently validated.
+
+**7.5 Platform and Data Usage Considerations**
+
+Before implementing production ingestion, the team should review applicable platform terms, data usage restrictions, privacy requirements, and retention policies.
+
+Reviewer identifiers, profile information, and other unnecessary personal metadata should be excluded from downstream analytical datasets wherever possible.
+
+### 8. Recommendations
+
+Based on the initial assessment, the following steps are recommended:
+
+1. Continue evaluating Google Play as a potential source for the prototype, while documenting its unofficial collection method and limitations.
+2. Conduct repeatability tests across different dates and collection sessions.
+3. Monitor field completeness, duplicate rates, and collection failures.
+4. Evaluate alternative official or authorized data access methods where available.
+5. Assess additional sources, such as G2, only after confirming practical access and applicable permissions.
+6. Establish data minimization and retention practices before expanding the collection pipeline.
+
+### 9. Conclusion
+
+The initial test demonstrates that Google Play public reviews can be retrieved and structured into a usable dataset under the current testing conditions.
+
+A total of 600 reviews were collected from three applications, and 489 English-language reviews were retained after preprocessing.
+
+The source is suitable for further prototype development and preliminary sentiment analysis. However, long-term collection reliability, platform compliance, and scalability remain to be validated.
+
+The next phase should focus on repeatability testing, alternative source evaluation, and improving the reliability of the data ingestion process.
