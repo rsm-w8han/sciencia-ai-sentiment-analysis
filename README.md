@@ -107,11 +107,13 @@ These findings are exploratory and reflect only the collected sample. They shoul
 
 ## 9. Next Steps
 
-- Further document Google Play collection behavior and access limitations.
-- Verify whether available G2 access supports retrieval of actual review text.
-- Refine issue classification and validate labels through additional manual review.
-- Explore additional review sources based on demonstrated accessibility and data quality.
-- Evaluate the feasibility of a repeatable data ingestion workflow.
+- Expand the Google Play review dataset across additional applications and product categories.
+- Identify recurring positive and negative themes across applications.
+- Analyze application-specific pain points and distinguish them from cross-application issues.
+- Compare numerical star ratings with sentiment expressed in review text.
+- Explore changes in user feedback over time and across app versions, where metadata is available.
+- Conduct additional manual validation of sentiment predictions and issue classifications.
+- Translate analytical findings into actionable recommendations for product and business teams.
 
 ## 10. Repository Structure
 
@@ -129,4 +131,4 @@ sciencia-ai-sentiment-analysis/
 
 ---
 
-**Project Status:** Preliminary data source validation and exploratory sentiment analysis completed. Further source validation and methodology refinement are ongoing.
+**Project Status:** Initial Google Play data collection and preliminary sentiment analysis completed. The project is transitioning toward expanded cross-application analysis, user pain point identification, and actionable business insights.alidation and methodology refinement are ongoing.
