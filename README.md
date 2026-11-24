@@ -40,6 +40,18 @@ Three applications were selected for testing:
 | Reviews retained after preliminary English-language filtering | 489 |
 
 **Important:** `google-play-scraper` is an unofficial third-party tool. This test demonstrates practical data accessibility under the conditions tested; it does not establish official Google API support, guaranteed permission, or long-term collection reliability.
+### Data Collection and Filtering
+
+We collected 600 Google Play reviews across three applications: Notion, Duolingo, and Spotify, with 200 reviews initially collected per application.
+
+The initial language detection identified 427 reviews as English. We then applied a supplementary rule-based check to identify short English reviews that may have been misclassified by the language detection process. This step reclassified 43 additional reviews as English.
+
+After language filtering, the final analysis dataset contained **470 English reviews**, representing 78.3% of the original dataset.
+
+The final dataset included:
+- Duolingo: 157 reviews
+- Notion: 171 reviews
+- Spotify: 142 reviews
 
 ## 4. Data Processing and Quality Assessment
 
